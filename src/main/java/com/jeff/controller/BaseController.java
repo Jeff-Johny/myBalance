@@ -20,19 +20,19 @@ public class BaseController {
 		model.addAttribute("message", "Welcome");
 		model.addAttribute("counter", ++counter);
 		logger.debug("[welcome] counter : {}", counter);
+		System.out.println("*************\n\njeff\n\n***********");
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return VIEW_INDEX;
 
 	}
 
-	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
-	public String welcomeName(@PathVariable String name, ModelMap model) {
+	@RequestMapping(value = "/sam.html", method = RequestMethod.GET)
+	public String welcomeName( ModelMap model) {
 
-		model.addAttribute("message", "Welcome " + name);
 		model.addAttribute("counter", ++counter);
 //		logger.debug("[welcomeName] counter : {}", counter);
-		return VIEW_INDEX;
+		return "";
 
 	}
 
