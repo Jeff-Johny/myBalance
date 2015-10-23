@@ -8,7 +8,7 @@ app.controller('tableController', function($scope, tableService) {
     	                {name:'R',balance:13},
     	                {name:'M',balance:76}
         ]
-//    	tableService.getDetails($scope);
+    	tableService.getDetails($scope);
 	};
     $scope.clear = function() {
     	
