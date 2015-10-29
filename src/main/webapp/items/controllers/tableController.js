@@ -5,17 +5,7 @@ app.controller('tableController', function($scope, tableService) {
     $scope.init  = function() {
     	$scope.users = [];
         $scope.date = $scope.getCurrentDate();
-        $scope.orders = [{
-            name: 'Jeff',
-            isShare: 'share',
-            item: 'veg',
-            amount: 20
-        },{
-            name: 'Nithin',
-            isShare: 'share',
-            item: 'veg',
-            amount: 20
-        }];
+        $scope.orders = [];
     	tableService.getDetails($scope);
 	};
     $scope.getCurrentDate = function(){
@@ -59,8 +49,8 @@ app.controller('tableController', function($scope, tableService) {
             }
         });
     };
-    $scope.save  = function() {
-    	
+    $scope.updateOrder  = function() {
+    	tableService.updateOrder($scope);
     };
     
 });

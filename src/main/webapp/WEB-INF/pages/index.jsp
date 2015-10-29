@@ -14,22 +14,27 @@
 			<div class="pure-u-2-3">
 				<table class="pure-table">
 					<tr ng-repeat="order in orders">
-						<td>{{order.name}}</td>
 						<td>
-							<input type="radio" ng-model="order.isShare" value="share" ng-change="updateAmount()"/> Share
-							<input type="radio" ng-model="order.isShare" value="full" ng-change="updateAmount()"/> Full
+							<input type="checkbox" ng-model="order.needFood" >
+						</td>
+						<td disabled=true>{{order.name}}</td>
+						<td>
+							<input ng-disabled="!order.needFood" type="radio" ng-model="order.isShare" value="share" ng-change="updateAmount()"/> Share
+							<input ng-disabled="!order.needFood" type="radio" ng-model="order.isShare" value="full" ng-change="updateAmount()"/> Full
 						</td>
 						<td>
-							<input type="radio" ng-model="order.item" value="veg" ng-change="updateAmount()"/> Veg
-							<input type="radio" ng-model="order.item" value="chicken" ng-change="updateAmount()"/> Chicken
-							<input type="radio" ng-model="order.item" value="beef" ng-change="updateAmount()"/> Beef
-							<input type="radio" ng-model="order.item" value="fish" ng-change="updateAmount()"/> Fish
+							<input ng-disabled="!order.needFood" disabled={{order.needFood}} type="radio" ng-model="order.item" value="veg" ng-change="updateAmount()"/> Veg
+							<input ng-disabled="!order.needFood" disabled={{order.needFood}} type="radio" ng-model="order.item" value="chicken" ng-change="updateAmount()"/> Chicken
+							<input ng-disabled="!order.needFood" disabled={{order.needFood}} type="radio" ng-model="order.item" value="beef" ng-change="updateAmount()"/> Beef
+							<input ng-disabled="!order.needFood" disabled={{order.needFood}} type="radio" ng-model="order.item" value="fish" ng-change="updateAmount()"/> Fish
 						</td>
 						<td>
 							{{order.amount}}
 						</td>
 					</tr>
 				</table>
+				<br>
+				<button class="button-xlarge pure-button" ng-click="updateOrder()">Update Order</button>
 			</div>
 			<div class="pure-u-1-3">
 				<table class="pure-table">

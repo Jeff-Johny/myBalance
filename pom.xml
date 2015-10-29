@@ -72,6 +72,12 @@
 		<version>1.1.0</version>
 	</dependency>
 	
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>servlet-api</artifactId>
+		<version>2.5</version>
+	</dependency>
+	
 	 <!-- MySQL database driver -->
 	<dependency>
 		<groupId>org.springframework</groupId>
@@ -83,6 +89,11 @@
 		<artifactId>json-lib</artifactId>
 		<version>2.4</version>
 		<classifier>jdk15</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20150729</version>
 	</dependency>
 	<dependency>
 		<groupId>mysql</groupId>
