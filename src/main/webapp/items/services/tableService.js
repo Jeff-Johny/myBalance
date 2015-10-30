@@ -13,18 +13,21 @@ app.service("tableService", function($http, $q) {
             }
 		}).success(function(data, status, headers, config) {
 			$scope.users = data.users;
-			if(data.orders.length === 0){
-				$scope.users.forEach(function(item, i){
-			        var obj = item;
+			$scope.users.forEach(function(item, index){
+				var orderItem = data.orders.filter(function(t, i){return t.userId === item.userId});
+				if(!orderItem.length){
+					var obj = item;
 			        obj.isShare = 'share';
 			        obj.item = 'veg';
 			        obj.amount = 0;
 			        obj.needFood = false;
+			        obj.paid = 0;
 			        $scope.orders.push(obj);
-			    });
-			}else{
-				$scope.orders = data.orders;
-			}
+				}else{
+					orderItem[0].name = item.name;
+					$scope.orders.push(orderItem[0]);
+				}
+		    });
 		    $scope.updateAmount();
 		}).error(function(data, status, headers, config) {
 			console.log('Failure');

@@ -83,6 +83,8 @@ public class BaseService implements IBaseService{
 	            	order.setIsShare(result.getString("is_share"));
 	            	order.setUserId(result.getInt("user_id"));
 	            	order.setItem(result.getString("item"));
+	            	order.setNeedFood(result.getBoolean("need_food"));
+	            	order.setPaid(result.getInt("paid"));
 	                return order;
 	            }
 	             
@@ -109,17 +111,17 @@ public class BaseService implements IBaseService{
 			JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 			for(Object obj : orders){
 				JSONObject jo = new JSONObject(obj.toString());
-				String sql = "";
+				String sql = null;
 				if(jo.has("orderId")){
 					sql = "UPDATE orders SET user_id=" +
 							jo.getInt("userId") + ", amount=" + jo.getInt("amount") + ", date='" + time +
-							"', is_share='"+jo.getString("isShare")+"', item='"+jo.getString("item")+"' WHERE order_id="+jo.getInt("orderId");
-				}else{
-					sql = "INSERT INTO orders (user_id, amount, date, is_share, item) VALUES ("+
-							jo.getInt("userId")+", "+ jo.getInt("amount")+", '"+ time+ "', '"+ jo.getString("isShare")+"', '"+ jo.getString("item")+"' )";
+							"', is_share='"+jo.getString("isShare")+"', item='"+jo.getString("item")+"', need_food="+jo.getBoolean("needFood")+ ", paid=" + jo.getInt("paid") +" WHERE order_id="+jo.getInt("orderId");
+				}else if(!jo.has("orderId") && jo.getBoolean("needFood")){
+					sql = "INSERT INTO orders (user_id, amount, date, is_share, item, need_food, paid) VALUES ("+
+							jo.getInt("userId")+", "+ jo.getInt("amount")+", '"+ time+ "', '"+ jo.getString("isShare")+"', '"+ jo.getString("item")+"', "+ jo.getBoolean("needFood") + " ,"+jo.getInt("paid")+" )";
 				}
-				 
-				jdbcTemplate.update(sql);
+				if(sql != null )
+					jdbcTemplate.update(sql);
 			}
 		} finally {
 			try {

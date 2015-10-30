@@ -8,6 +8,7 @@ public class Order {
 	private String item;
 	private Integer userId;
 	private Boolean needFood;
+	private Integer paid;
 	
 	public Integer getOrderId() {
 		return orderId;
@@ -50,5 +51,11 @@ public class Order {
 	}
 	public void setNeedFood(Boolean needFood) {
 		this.needFood = needFood;
+	}
+	public Integer getPaid() {
+		return paid;
+	}
+	public void setPaid(Integer paid) {
+		this.paid = paid;
 	}
 }

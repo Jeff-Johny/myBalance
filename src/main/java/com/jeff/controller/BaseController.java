@@ -72,6 +72,8 @@ public class BaseController {
 			jo.put("isShare", order.getIsShare());
 			jo.put("item", order.getItem());
 			jo.put("userId", order.getUserId());
+			jo.put("needFood", order.getNeedFood());
+			jo.put("paid", order.getPaid());
 			orderJa.put(jo);
 		}
 		ret.put("users", userJa);
