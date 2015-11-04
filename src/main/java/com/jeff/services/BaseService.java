@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -117,8 +118,17 @@ public class BaseService implements IBaseService{
 							jo.getInt("userId") + ", amount=" + jo.getInt("amount") + ", date='" + time +
 							"', is_share='"+jo.getString("isShare")+"', item='"+jo.getString("item")+"', need_food="+jo.getBoolean("needFood")+ ", paid=" + jo.getInt("paid") +" WHERE order_id="+jo.getInt("orderId");
 				}else if(!jo.has("orderId") && jo.getBoolean("needFood")){
-					sql = "INSERT INTO orders (user_id, amount, date, is_share, item, need_food, paid) VALUES ("+
-							jo.getInt("userId")+", "+ jo.getInt("amount")+", '"+ time+ "', '"+ jo.getString("isShare")+"', '"+ jo.getString("item")+"', "+ jo.getBoolean("needFood") + " ,"+jo.getInt("paid")+" )";
+					String selectSql = "SELECT * FROM orders WHERE date='"+ time +"' and user_id="+jo.getInt("userId");
+					List list = jdbcTemplate.queryForList(selectSql);
+					if(list.isEmpty()){
+						sql = "INSERT INTO orders (user_id, amount, date, is_share, item, need_food, paid) VALUES ("+
+								jo.getInt("userId")+", "+ jo.getInt("amount")+", '"+ time+ "', '"+ jo.getString("isShare")+"', '"+ jo.getString("item")+"', "+ jo.getBoolean("needFood") + " ,"+jo.getInt("paid")+" )";
+					}else{
+						sql = "UPDATE orders SET user_id=" +
+								jo.getInt("userId") + ", amount=" + jo.getInt("amount") + ", date='" + time +
+								"', is_share='"+jo.getString("isShare")+"', item='"+jo.getString("item")+"', need_food="+jo.getBoolean("needFood")+ ", paid=" + jo.getInt("paid") +" WHERE date='"+ time +"' and user_id="+jo.getInt("userId");
+					}
+					
 				}
 				if(sql != null )
 					jdbcTemplate.update(sql);
